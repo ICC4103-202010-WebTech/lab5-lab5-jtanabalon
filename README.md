@@ -1,3 +1,5 @@
+José Tomás Anabalón Díaz
+
 # Base Code for Lab Assignment 5
 
 In this lab assignment you will write Active Record queries on the model layer 

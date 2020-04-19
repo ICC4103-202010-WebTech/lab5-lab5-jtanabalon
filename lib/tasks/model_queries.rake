@@ -19,5 +19,28 @@ namespace :db do
     result = Event.select(:name).distinct.map { |x| x.name }
     puts(result)
     puts("EOQ") # End Of Query -- always add this line after a query.
+    result1 = Event.joins(ticket_types: { tickets:order}).where(orders: {customer_id:1}.select(name).distinct.count)
+    puts(result1)
+    puts("EOQ") # End Of Query -- always add this line after a query.
+    result2 = Event.joins(ticket_types: { tickets: :order}).where(orders:{customer_id: 1}).select(:name).distinct.map{|x| x.name}
+    puts(result2)
+    puts("EOQ") # End Of Query -- always add this line after a query.
+    result3 = Event.joins(ticket_types: { tickers: { order: :customer } }).where(customers: { gender: 'f' }).group(:name).count.max
+    puts(result3)
+    puts("EOQ") # End Of Query -- always add this line after a query.
+    result4 = Event.joins(ticket_types: {tickets: { order: :costumer } }).where("customers.gender = 'm' and\ costumers.age >=18 and customers.age >=30").group(:name).count.max
+    puts(result4)
+    puts("EOQ") # End Of Query -- always add this line after a query.
+    result5 = Customer.find(id).tickets.count
+    puts(result5)
+    puts("EOQ") # End Of Query -- always add this line after a query.
+    result6 = Ticket.joins(ticket_type: :event).where(events: {id: 1}).count
+    puts(result6)
+    puts("EOQ") # End Of Query -- always add this line after a query.
+    result7 = TicketType.joins(:tickets, :event).where(event:1).select("ticket_type.ticket_price").sum("ticket_price")
+    puts(result7)
+    puts("EOQ") # End Of Query -- always add this line after a query.
+
+
   end
 end
